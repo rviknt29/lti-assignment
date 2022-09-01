@@ -1,6 +1,6 @@
 import { Server, Model } from 'miragejs';
-// import data from '../assets/mockData.json';
-import data from './data/characters.json';
+import characters from './data/characters.json';
+import phrases from './data/phrases.json';
 
 export function makeServer({ environment = "development" } = {}) {
 
@@ -9,24 +9,18 @@ export function makeServer({ environment = "development" } = {}) {
 
         models: {
             todo: Model,
+            // phrases: Model,
         },
 
         seeds(server) {
-            server.create("todo", data.data[0]);
-            server.create("todo", data.data[1]);
+            server.create("todo", characters.data[0]);
+            server.create("todo", characters.data[1]);
         },
 
         routes() {
             this.namespace = "api";
             this.get("/todos", schema => {
                 console.log("This is schema------>", schema)
-                // schema.create("todo", {
-                //     "_id": "59edee689509e51682ff8e02",
-                //     "firstName": "Marge",
-                //     "lastName": "Simpson",
-                //     "picture": "https://vignette.wikia.nocookie.net/simpsons/images/8/87/Marge_Simpson_2.png/revision/latest?cb=20150131104556",
-                //     "age": 40
-                // })
                 return schema.todos.all()
             })
             // For Adding
@@ -40,7 +34,8 @@ export function makeServer({ environment = "development" } = {}) {
             // For Deleting
             this.delete('/delete/:id', (schema, request) => {
                 let id = request.params.id;
-                return schema.todos.find(id).destroy();
+                // return schema.todos.find(id).destroy();
+                return schema.todos.findBy({_id:id}).destroy();
             });
         },
     })

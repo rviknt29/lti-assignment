@@ -29,22 +29,29 @@
         <characters-card></characters-card>
       </v-col>
     </v-row> -->
-  <v-row>
-    <v-btn elevation="2" @click="addItem()">Add Record</v-btn>
-  </v-row>
-  <v-row>
-  <v-col cols="24" v-for="item in getAllCharacters" :key="item._id">
-    <characters-card :image="item.picture" :fName="item.firstName" :lName="item.lastName" :age="item.age" :id="item._id" class="mb-5" @deleteRecord="deleteRecord"></characters-card>
-  </v-col>
-  </v-row>
-  
+    <v-row class="mb-10 mt-10">
+      <v-btn @click="addItem()" block color="primary">Add New Record</v-btn>
+    </v-row>
+    <v-row>
+      <v-col cols="24" v-for="item in getAllCharacters" :key="item._id">
+        <characters-card
+          :image="item.picture"
+          :fName="item.firstName"
+          :lName="item.lastName"
+          :age="item.age"
+          :id="item._id"
+          class="mb-5"
+          @deleteRecord="deleteRecord"
+        ></characters-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import phrases from "../../data/phrases.json";
 import characters from "../../data/characters.json";
-import index from "../../store/index"
+import index from "../../store/index";
 import charactersCard from "../../components/Phrases/CharactersCard.vue";
 
 import Phrase from "./Phrase";
@@ -54,7 +61,7 @@ export default {
 
   components: {
     "app-phrase": Phrase,
-    "characters-card":charactersCard,
+    "characters-card": charactersCard,
   },
 
   data() {
@@ -63,26 +70,21 @@ export default {
     };
   },
 
-  
-  mounted(){
-    this.$store.dispatch("getPhrasesData");
-    console.log("getPhrasesData Dispatched");
-    // this.$store.dispatch("getCharactersdata");
-    // console.log("getCharactersdata Dispatched");
-
-    
+  mounted() {
+    this.$store.dispatch("getCharactersdata");
+    console.log("getCharactersdata Dispatched");
+    this.$store.dispatch("getPhrasesdata");
+    console.log("getPhrasesdata Dispatched");
   },
 
   computed: {
     // getAllPhrases() {
-    // //   return phrases.data;
     // return this.$store.getters.getPhraseData;
     // },
 
     getAllCharacters() {
-    //   return characters.data;
-    return this.$store.getters.getCharacterData;
-     },
+      return this.$store.getters.getCharacterData;
+    },
 
     // getCharacterId() {
     //   const characterObj = this.getAllCharacters.find((c) => {
@@ -106,13 +108,13 @@ export default {
     // },
   },
   methods: {
-    deleteRecord(id){
-        this.$store.dispatch("deleteRecord", id)
+    deleteRecord(id) {
+      this.$store.dispatch("deleteRecord", id);
     },
 
-    addItem(){
-        this.$store.dispatch("addRecord")
-    }
-  }
+    addItem() {
+      this.$store.dispatch("addRecord");
+    },
+  },
 };
 </script>

@@ -1,16 +1,16 @@
 <template>
   <v-card class="mx-auto" max-width="344">
-    <v-img :src="image" height="200px"></v-img>
+    <v-img :src="image"></v-img>
 
     <v-card-title>
-      {{ fName + " " + lName }}
+      Character Name : {{ fName + " " + lName }}
     </v-card-title>
 
     <v-card-title>
-      {{ age }}
+      Character Age : {{ age }}
     </v-card-title>
 
-    <v-btn elevation="2" @click="deleteItem()">Delete</v-btn>
+    <v-btn elevation="2" @click="deleteItem()" class="ma-5">Delete</v-btn>
     
 
     <!-- <v-card-actions>
@@ -53,6 +53,7 @@ export default {
   methods: {
     deleteItem(){
       this.$emit("deleteRecord", this.id)
+      // this.$store.dispatch("deleteCharacter", this.id)
     }
   }
 };
